@@ -1,0 +1,10 @@
+version: "3"
+services:
+  py-server:
+    image: registry.cn-hangzhou.aliyuncs.com/lance0515/lance-test:1.1
+    container_name: py-server
+    ports:
+      - 8000:8000
+      - 8004:8004
+    volumes:
+      - /Users/lance/code/python:/app
