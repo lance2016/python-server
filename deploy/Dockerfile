@@ -1,6 +1,6 @@
 FROM daocloud.io/ubuntu:trusty
 
-MAINTAINER Lance <lancefate@163.com>
+LABEL maintainer="Lance"
 
 FROM amazonlinux:latest
 
