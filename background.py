@@ -9,7 +9,7 @@ app = APIRouter(prefix="/start")
 @app.post("/")
 def read_root():
     log.info("github pushed, start exec auto_pull.sh")
-    ret = os.system('sh /home/lance/python/python-server/sh/auto_pull.sh')
+    ret = os.system('sh /data/python-server/sh/auto_pull.sh')
     print(f"finish: {ret}")
     print(f"status: {ret>>8}")
     return {"Hello": "World2"}

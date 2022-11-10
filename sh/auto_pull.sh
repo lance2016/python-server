@@ -7,10 +7,10 @@ date
 pwd;
 echo "切换到git目录"
 ##切换到放置git代码的目录绝对路径
-cd /home/lance/python/python-server;
+cd /data/python-server;
 path=`pwd`
 echo $path
-if [ "$path" == "/home/lance/python/python-server" ]
+if [ "$path" == "/data/python-server" ]
 then
         echo "目录切换成功，准备拉取最新代码"
 else
