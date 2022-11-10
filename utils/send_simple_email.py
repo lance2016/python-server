@@ -54,6 +54,3 @@ def send_message(receive_email_list, message):
         return 'success'
     except smtplib.SMTPException as e:
         return f'error,{e}'  # 打印错误
-
-
-# print(send_email('test_a','test_b',))
