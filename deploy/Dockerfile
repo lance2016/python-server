@@ -1,4 +1,4 @@
-FROM daocloud.io/ubuntu:trusty
+FROM registry.cn-hangzhou.aliyuncs.com/lance0515/lance-test:base_python
 
 LABEL maintainer="Lance"
 
