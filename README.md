@@ -1,7 +1,6 @@
-# 记录
-**# 步骤**
-**## 构建Dockerfile**
-**### 基础镜像**
+# 步骤
+## 构建Dockerfile
+### 基础镜像
 构建python运行基础镜像
 后续具体服务运行镜像在此基础上添加内容
 ```
@@ -80,5 +79,3 @@ echo "成功"
 ```
 ## 结合github push自动拉取代码
 通过github设置webhook，回调执行auto_pull.sh脚本
-
-#服务器
