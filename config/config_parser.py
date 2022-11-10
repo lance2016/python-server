@@ -1,7 +1,5 @@
 from configparser import ConfigParser
-import configparser
 from functools import lru_cache
-import json
 import os
 
 
@@ -13,7 +11,6 @@ class ReadConfigFile(object):
             raise FileNotFoundError("文件不存在")
 
         conn.read(file_path)
-        print(conn.items('email'))
 
         config = {}
         for section in section_list:

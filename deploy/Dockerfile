@@ -19,4 +19,6 @@ EXPOSE 28000-28004
 
 COPY . .
 
+ENV PYTHONPATH /app
+
 ENTRYPOINT ["python3", "/app/main.py"]
