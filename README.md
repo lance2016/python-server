@@ -122,4 +122,3 @@ echo "成功"
 ## 结合github push自动拉取代码
 
 **通过github设置webhook，回调执行auto_pull.sh脚本**
-
