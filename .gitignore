@@ -165,3 +165,5 @@ api/engine_openapi.json
 
 config.ini
 config/application.txt
+static
+static/app_openapi.json
