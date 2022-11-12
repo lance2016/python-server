@@ -20,7 +20,6 @@ class Settings(BaseSettings):
 
     class Config:
         CODE_BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        print(CODE_BASE)
         env_file = f"{CODE_BASE}/config/application.txt"
         env_file_encoding = 'utf-8'
 
