@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     db_host: str = ""
     db_port: int = 3306
     db_name: str = ""
+    ip: str = ""
 
     class Config:
         CODE_BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

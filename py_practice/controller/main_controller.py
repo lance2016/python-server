@@ -3,6 +3,7 @@ from api.middleware.oauth import token_is_true
 from loguru import logger as log
 
 from config.config import get_settings
+from config.zk_config import get_zk
 from db.connection import get_session
 from py_practice.model.student_model import student
 from py_practice.service import main_service
@@ -46,4 +47,17 @@ def test_mysql(db: sessionmaker = Depends(get_session)):
     stu = db.query(student).all()
     # stu2 = db.execute("select * from student where id = 2").first()
     # print(type(stu2))
+    # db.commit()
     return {"stu": stu}
+
+
+@router.get("/zk/", name="zookeeper")
+def test_connect_zookeeper():
+    zk = get_zk()
+    zk.start()  # 与zookeeper连接
+    print("exist", zk.exists("/abc"))
+    print(zk.get("/abc"))
+    node = zk.get_children('/')  # 查看根节点有多少个子节点
+    print(type(node))
+    zk.stop()  # 与zookeeper断开
+    return node
