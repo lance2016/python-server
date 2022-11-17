@@ -1,8 +1,11 @@
 # 发送邮件
+from datetime import datetime
 from email.mime.text import MIMEText
+import random
 import smtplib
-
+from sqlalchemy.orm import sessionmaker
 from config.config import get_settings
+from py_practice.model.student_model import t1
 
 setting = get_settings()
 
@@ -56,3 +59,27 @@ def send_message(receive_email_list, message, sender, mail_host, mail_user, mail
         return 'success'
     except smtplib.SMTPException as e:
         return f'error,{e}'  # 打印错误
+
+
+def generate_data(model, num):
+    data_list = []
+    for i in range(num):
+        entity = model()
+        entity.m_id = i
+        entity.name = f"lance_{i}"
+        entity.identity_no = f"no_{i}"
+        entity.address = f"address_{i}"
+        data_list.append(entity)
+    return data_list
+
+
+def batch_insert_data(engine: sessionmaker, insert_list):
+
+    t0 = datetime.now()
+    engine.bulk_save_objects(insert_list)
+    # engine.execute(
+    #     entity.__table__.insert(),
+    #     insert_list
+    # )  # ==> engine.execute('insert into ttable (name) values ("NAME"), ("NAME2")')
+    print(
+        f"SQLAlchemy Core: Total time for {len(insert_list)} records  {str(datetime.now() - t0)} secs")

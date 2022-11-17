@@ -5,7 +5,7 @@ from loguru import logger as log
 from config.config import get_settings
 from config.zk_config import get_zk
 from db.connection import get_session
-from py_practice.model.student_model import student
+from py_practice.model.student_model import student, t1
 from py_practice.service import main_service
 from sqlalchemy.orm import sessionmaker
 
@@ -42,13 +42,17 @@ def router_send_email(params: dict):
         return {"code": 400, "message": "send fail"}
 
 
-@router.get("/mysql/", name="test")
-def test_mysql(db: sessionmaker = Depends(get_session)):
-    stu = db.query(student).all()
-    # stu2 = db.execute("select * from student where id = 2").first()
-    # print(type(stu2))
-    # db.commit()
-    return {"stu": stu}
+@router.get("/mysql/batch_insert/", name="批量插入")
+def test_mysql(params: dict, db: sessionmaker = Depends(get_session)):
+    token = setting.token
+    param_token = params.get("token")
+    if token != param_token:
+        return {"code": 400, "message": "验证失败，无法发送邮件"}
+    data_list = main_service.generate_data(t1, params.get("num", 10))
+    main_service.batch_insert_data(db, data_list)
+    db.commit()
+    entity = db.query(t1).first()
+    return {"t1": entity}
 
 
 @router.get("/zk/", name="zookeeper")
