@@ -1,4 +1,4 @@
-FROM registry.cn-hangzhou.aliyuncs.com/lance0515/lance-test:base_python
+FROM registry.cn-hangzhou.aliyuncs.com/lance0515/lance-test:python_base_amd64
 
 LABEL maintainer="Lance"
 
