@@ -1,3 +1,4 @@
+import copy
 import random
 
 
@@ -5,13 +6,16 @@ class SortAlgorithm:
     def __init__(self, nums:list=None):
         if nums is None or len(nums)==0:
             self.nums = [random.randint(0,10) for i in range(10)]
+        else:
+            self.nums = nums
 
-    def quick_sort(self, nums, start, end):
+    def quick_sort(self, start, end):
+        nums = self.nums
         if start>=end:
             return
         mid = self.partition(nums, start, end)
-        self.quick_sort(nums, start, mid-1)
-        self.quick_sort(nums, mid+1, end)
+        self.quick_sort(start, mid-1)
+        self.quick_sort(mid+1, end)
 
     def partition(self, nums, start, end):
         # 选择随机基准
@@ -31,6 +35,8 @@ class SortAlgorithm:
         return i
 
 if __name__ =="__main__":
-    s = SortAlgorithm()
-    s.quick_sort(s.nums, 0, len(s.nums)-1)
-    print(s.nums)
+    nums=[1,3,2,7,6,5,9,8,10,0]
+    print("before sort: ", nums)
+    s = SortAlgorithm(nums=copy.deepcopy(nums))
+    s.quick_sort( 0, len(s.nums)-1)
+    print("after sort:  ", s.nums)
