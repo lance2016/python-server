@@ -1,24 +1,53 @@
-from typing import Union
+from loguru import logger as log
 import uvicorn
 from fastapi import FastAPI
-from loguru import logger as log
+from api import router
+from config import config, logger, swagger
+from db import connection
+from py_practice.background.background import start_background_job
+
 
 app = FastAPI()
 
 
-@app.get("/")
-def read_root():
-    log.info("你好")
-    return {"Hello": "World2"}
+def get_reload():
+    import os
+    RELOAD = os.getenv("RELOAD", default="true")
+    if RELOAD.lower() == "false":
+        RELOAD = False
+    else:
+        RELOAD = True
+    return RELOAD
 
 
+@app.on_event("startup")
+def init_whole_system():
+    # 初始化profile, 必须放在最前面
+    config_setting = config.get_settings()
+    log.info(config_setting)
+    # 初始化log
+    logger.init()
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    log.info(f"items:{item_id}")
-    return {"item_id": item_id, "q": q}
+    # 初始化router
+    router.init(app, config_setting)
+
+    # router初始化之后 导出 swagger api.json
+    config.export_openapi_docs(app.openapi())
+
+    # 初始化数据库链接
+    connection.init_connection()
+
+    # init swagger docs
+    swagger.init()
+
+    # init data_source
+    # data_source.init()
+
+    # start background job
+    start_background_job()
 
 
-if __name__=="__main__":
-    log.info("server start")
-    uvicorn.run("main:app", host="0.0.0.0", port=8004, reload=True)
+if __name__ == "__main__":
+    # 启动
+    RELOAD = get_reload()
+    uvicorn.run("main:app", host="0.0.0.0", port=8004, reload=RELOAD)

@@ -1,17 +1,20 @@
-FROM daocloud.io/ubuntu:trusty
+FROM registry.cn-hangzhou.aliyuncs.com/lance0515/lance-test:python_base_amd64
 
-MAINTAINER Lance <lancefate@163.com>
-
-FROM amazonlinux:latest
-
-RUN yum update -y && \
-yum install -y python3 python3-devel vim
+LABEL maintainer="Lance"
 
 COPY requirements.txt .
+
 RUN pip3 install -r requirements.txt
+
 # 配置默认放置 App 的目录
 RUN mkdir -p /app
+
 WORKDIR /app
-EXPOSE 8000
+
+EXPOSE 28000-28004
+
 COPY . .
+
+ENV PYTHONPATH /app
+
 ENTRYPOINT ["python3", "/app/main.py"]

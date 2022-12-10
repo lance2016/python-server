@@ -1,7 +1,7 @@
 version: "3"
 services:
   py-server:
-    image: registry.cn-hangzhou.aliyuncs.com/lance0515/lance-test:amd64_v1.0
+    image: registry.cn-hangzhou.aliyuncs.com/lance0515/lance-test:${BASE_VERSION}
     container_name: py-server
     ports:
       - 28000:8000
