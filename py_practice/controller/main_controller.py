@@ -44,9 +44,7 @@ def router_send_email(params: dict):
 
 @router.get("/mysql/batch_insert/", name="批量插入")
 def test_mysql(params: dict, db: sessionmaker = Depends(get_session)):
-    token = setting.token
-    param_token = params.get("token")
-    if token != param_token:
+    if not check_token(params.get("token")):
         return {"code": 400, "message": "验证失败，无法发送邮件"}
     data_list = main_service.generate_data(t1, params.get("num", 10))
     main_service.batch_insert_data(db, data_list)
@@ -65,3 +63,18 @@ def test_connect_zookeeper():
     print(type(node))
     zk.stop()  # 与zookeeper断开
     return node
+
+
+
+@router.get("/produce/", name="rabbitmq")
+def test_connect_rabbitmq(params: dict):
+    if not check_token(params.get("token")):
+        return {"code": 400, "message": "验证失败，无法发送邮件"}
+    main_service.rabbitmq_produce(params)
+    return {"code":200, "success": True, "msg":"发送成功"}
+
+
+def check_token(param_token):
+    token = setting.token
+    return token == param_token
+        

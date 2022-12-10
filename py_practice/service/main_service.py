@@ -1,11 +1,13 @@
 # 发送邮件
 from datetime import datetime
 from email.mime.text import MIMEText
-import random
 import smtplib
+import time
+from loguru import logger
 from sqlalchemy.orm import sessionmaker
 from config.config import get_settings
 from py_practice.model.student_model import t1
+from utlis.rabbitmq_util import RabbitMQ
 
 setting = get_settings()
 
@@ -83,3 +85,33 @@ def batch_insert_data(engine: sessionmaker, insert_list):
     # )  # ==> engine.execute('insert into ttable (name) values ("NAME"), ("NAME2")')
     print(
         f"SQLAlchemy Core: Total time for {len(insert_list)} records  {str(datetime.now() - t0)} secs")
+
+
+def on_message(channel, method, properties, body):
+    print(body)
+
+
+def rabbitmq_produce(params: dict):
+    try:
+        # Create the RabbitMQ object
+        rmq = RabbitMQ(
+            host=setting.rabbit_mq_host,
+            port=setting.rabbit_mq_port,
+            vhost=setting.rabbit_mq_vhost,
+            username=setting.rabbit_mq_user,
+            password=setting.rabbit_mq_psw
+        )
+        exchange = 'exchange_hello'
+        queue = 'queue_hello'
+        key = 'key_hello'
+        rmq.bind_queue_exchange(queue=queue, exchange=exchange, routing_key=key)
+        for item in params.get("msg"):
+            rmq.public_msg(
+                exchange=exchange,
+                routing_key=key,
+                json=item
+            )
+    except Exception as e:
+        logger.error(f"error:{e}")
+    finally:
+        rmq.close()

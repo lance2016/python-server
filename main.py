@@ -1,11 +1,10 @@
 from loguru import logger as log
-from typing import Union
 import uvicorn
 from fastapi import FastAPI
-
 from api import router
 from config import config, logger, swagger
 from db import connection
+from py_practice.background.background import start_background_job
 
 
 app = FastAPI()
@@ -25,7 +24,7 @@ def get_reload():
 def init_whole_system():
     # 初始化profile, 必须放在最前面
     config_setting = config.get_settings()
-    print(config_setting)
+    log.info(config_setting)
     # 初始化log
     logger.init()
 
@@ -44,7 +43,8 @@ def init_whole_system():
     # init data_source
     # data_source.init()
 
-    # service_background_job.start_up_init_background_task()
+    # start background job
+    start_background_job()
 
 
 if __name__ == "__main__":

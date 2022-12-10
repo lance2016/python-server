@@ -18,6 +18,11 @@ class Settings(BaseSettings):
     db_port: int = 3306
     db_name: str = ""
     ip: str = ""
+    rabbit_mq_user: str = "rabbitmq"
+    rabbit_mq_psw: str = "rabbitmq"
+    rabbit_mq_host: str = "localhost"
+    rabbit_mq_port: int = 5672
+    rabbit_mq_vhost: str = "/"
 
     class Config:
         CODE_BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
