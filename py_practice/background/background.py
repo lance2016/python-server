@@ -4,7 +4,7 @@ import time
 from loguru import logger
 from config.config import get_settings
 
-from utlis.rabbitmq_util import RabbitMQ
+from utils.rabbitmq_util import RabbitMQ
 setting = get_settings()
 
 

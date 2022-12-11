@@ -44,10 +44,11 @@ def init_whole_system():
     # data_source.init()
 
     # start background job
-    start_background_job()
+    # start_background_job()
 
 
 if __name__ == "__main__":
     # 启动
-    RELOAD = get_reload()
-    uvicorn.run("main:app", host="0.0.0.0", port=8004, reload=RELOAD)
+    # RELOAD = get_reload()
+
+    uvicorn.run("main:app", host="0.0.0.0", port=8004, reload=True)

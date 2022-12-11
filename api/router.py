@@ -1,10 +1,9 @@
 
-
 from api.middleware.global_exception import add_exception
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from py_practice.controller import main_controller
+from py_practice.controller import mail_controller, main_controller, mq_controller, mysql_controller, zk_controller
 
 
 def init(app: FastAPI, config_setting):
@@ -33,3 +32,7 @@ def add_cros(app: FastAPI):
 
 def add_router(app: FastAPI):
     app.include_router(main_controller.router)
+    app.include_router(zk_controller.router)
+    app.include_router(mq_controller.router)
+    app.include_router(mail_controller.router)
+    app.include_router(mysql_controller.router)
