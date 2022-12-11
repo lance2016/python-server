@@ -23,6 +23,8 @@ class Settings(BaseSettings):
     rabbit_mq_host: str = "localhost"
     rabbit_mq_port: int = 5672
     rabbit_mq_vhost: str = "/"
+    redis_passwd: str = ""
+    redis_port: int = 6379
 
     class Config:
         CODE_BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
