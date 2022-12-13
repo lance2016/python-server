@@ -159,11 +159,13 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 .DS_Store
-engine_openapi.json
-api/engine_openapi.json
-api/engine_openapi.json
+*/.DS_Store
+*/engine_openapi.json
+*/api/engine_openapi.json
+*/api/engine_openapi.json
 
-config.ini
-config/application.txt
-static
-static/app_openapi.json
+
+*/config/application.txt
+*/static
+*/static/app_openapi.json
+./dist/*
