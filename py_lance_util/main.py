@@ -2,7 +2,7 @@ from loguru import logger as log
 import uvicorn
 from fastapi import FastAPI
 from api import router
-from config import config, logger, swagger
+from config import logger, swagger
 from db import connection
 from py_practice.background.background import start_background_job
 
@@ -22,17 +22,14 @@ def get_reload():
 
 @app.on_event("startup")
 def init_whole_system():
-    # 初始化profile, 必须放在最前面
-    config_setting = config.get_settings()
-    log.info(config_setting)
     # 初始化log
     logger.init()
 
     # 初始化router
-    router.init(app, config_setting)
+    router.init(app)
 
     # router初始化之后 导出 swagger api.json
-    config.export_openapi_docs(app.openapi())
+    # config.export_openapi_docs(app.openapi())
 
     # 初始化数据库链接
     connection.init_connection()

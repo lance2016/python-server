@@ -3,13 +3,15 @@ from urllib.parse import quote
 
 from loguru import logger
 
-from config import config
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
-# 数据库连接配置
-settings = config.get_settings()
+from py_lance_util.config.config_provider import get_config
 
+# 数据库连接配置
+
+config = get_config()
+db_config = config.get_section("mysql")
 
 engine = None
 
@@ -18,11 +20,11 @@ def init_connection():
     global engine
     # 用户名:密码@localhost:端口/数据库名
     DB_URI = "mysql+pymysql://{username}:{password}@{hostname}:{port}/{database}".format(
-        username=settings.db_user,
-        password=quote(settings.db_passwd, '', "utf-8", None),
-        hostname=settings.db_host,
-        port=settings.db_port,
-        database=settings.db_name
+        username=db_config["user"],
+        password=quote(db_config["password"], '', "utf-8", None),
+        hostname=db_config["host"],
+        port=db_config["port"],
+        database=db_config["db_name"]
     )
     engine = create_engine(DB_URI, echo=True)
     check_connection()

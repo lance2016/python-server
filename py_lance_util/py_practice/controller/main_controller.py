@@ -1,16 +1,11 @@
 from fastapi import APIRouter, Depends
 from api.middleware.oauth import token_is_true
 from loguru import logger as log
-from common.response import Response
 
-from config.config import get_settings
-from db.connection import get_session
-from py_practice.model.student_model import student, t1
-from py_practice.service import main_service
+from py_lance_util.config.config_provider import get_config
+
 
 router = APIRouter(prefix="/main", tags=["main"], dependencies=[Depends(token_is_true)])
-
-setting = get_settings()
 
 
 @router.get("/")
@@ -20,6 +15,7 @@ def read_root():
 
 
 def check_token(param_token):
-    token = setting.token
+    config = get_config()
+    token = config.get_config("security","token")
     return token == param_token
         

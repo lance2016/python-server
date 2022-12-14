@@ -1,15 +1,15 @@
 import functools
 import json
 import redis
-from config.config import get_settings
+from py_lance_util.config.config_provider import get_config
 
 
-setting = get_settings()
-
-ip = setting.ip
-redis_password = setting.redis_passwd
+config = get_config()
+redis_config = config.get_section("redis")
+host = redis_config["host"]
+password = redis_config["password"]
 exper_seconds = 60*60
-redis_port = setting.redis_port
+redis_port = redis_config["port"]
 redis_db = 0
 
 
@@ -24,7 +24,7 @@ class RedisConnection:
 
 
 def get_conn():
-    return RedisConnection.get_instance(host=ip, port=redis_port, password=redis_password)
+    return RedisConnection.get_instance(host=host, port=redis_port, password=password)
 
 
 def set_value(key, value):

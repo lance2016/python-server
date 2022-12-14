@@ -2,12 +2,12 @@ import threading
 import time
 
 from loguru import logger
-from config.config import get_settings
+from py_lance_util.config.config_provider import get_config
+
 
 from utils.rabbitmq_util import RabbitMQ
-setting = get_settings()
-
-
+config = get_config()
+rabbitmq_config = config.get_section("rabbit_mq")
 class MyThread(threading.Thread):
     def __init__(self, thread_id, name, counter):
         threading.Thread.__init__(self)
@@ -27,11 +27,11 @@ def rabbitmq_consume():
         logger.info("开始消费")
         # Create threads
         rmq = RabbitMQ(
-            host=setting.rabbit_mq_host,
-            port=setting.rabbit_mq_port,
-            vhost=setting.rabbit_mq_vhost,
-            username=setting.rabbit_mq_user,
-            password=setting.rabbit_mq_psw
+            host=rabbitmq_config["host"],
+            port=rabbitmq_config["port"],
+            vhost=rabbitmq_config["vhost"],
+            username=rabbitmq_config["user"],
+            password=rabbitmq_config["password"]
         )
         print(rmq)
         # 声明一个队列

@@ -1,11 +1,10 @@
 
 
 from loguru import logger as log
-from config.config import get_settings
 from py_lance_util.config.config_provider import get_config
 from utils.rabbitmq_util import RabbitMQ
 
-config = get_config("dp-python-server")
+config = get_config()
 rabbitmq_config = config.get_section("rabbit_mq")
 
 

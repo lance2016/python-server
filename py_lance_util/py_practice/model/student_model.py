@@ -4,9 +4,7 @@ from sqlalchemy import Column, Integer, String, DateTime, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 from urllib.parse import quote
-from config.config import get_settings
 
-settings = get_settings()
 # 创建对象的基类:
 Base = declarative_base()
 
