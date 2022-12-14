@@ -165,7 +165,9 @@ cython_debug/
 */api/engine_openapi.json
 
 
+./doc
+./logs
 */config/application.txt
-*/static
+./static
 */static/app_openapi.json
 ./dist/*

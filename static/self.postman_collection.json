@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "8b19f407-f947-43be-9bee-776544acbd51",
+		"name": "self",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14455071"
+	},
+	"item": [
+		{
+			"name": "zookeeper",
+			"item": [
+				{
+					"name": "zk",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth_test}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{ip}}:{{port}}/{{zookeeper}}/",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{zookeeper}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth_test}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{ip}}:{{port}}/{{zookeeper}}/list/",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{zookeeper}}",
+								"list",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mq",
+			"item": [
+				{
+					"name": "rabbitmq_send",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth_test}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\":\"token\",\n    \"user\":\"jack\",\n    \"msg\":[\n        \"你好\",\n        \"nice to meet you\",\n        \"bye\",\n         \"你好\",\n        \"nice to meet you\",\n        \"bye\",\n         \"你好\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{port}}/{{mq}}/produce/",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{mq}}",
+								"produce",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mail",
+			"item": [
+				{
+					"name": "send_email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth_test}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\":\"token\",\n    \"receivers\": [\"lancefate@163.com\",\"960196849@qq.com\"],\n    \"title\":\"this is a title\",\n    \"content\":\" this is the content\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{port}}/{{mail}}/send/",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{mail}}",
+								"send",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mysql",
+			"item": [
+				{
+					"name": "batch_insert",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\":\"token\",\n    \"num\":100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{port}}/{{mysql}}/batch_insert/",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{mysql}}",
+								"batch_insert",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HelloWorld",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth_test}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/{{prefix}}/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pull github",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth_test}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"schema_id\": 4,\n    \"meta_id\": 192,\n    \"rule_config_list\": [\n        {\n            \"pattern\": \"template\",\n            \"rule_type\": \"table\",\n            \"rule_id\": 45,\n            \"compare_way\": \">\",\n            \"threshold\": 10\n        },\n        {\n            \"pattern\": \"template\",\n            \"rule_type\": \"column\",\n            \"column_id\": \"\",\n            \"rule_id\": 34\n        }\n    ],\n    \"resource_group\": 180,\n    \"day_start_time\": \"20221110000000\",\n    \"day_end_time\": \"20421104000000\",\n    \"cron_type\": 1,\n    \"cycle\": \"0 0 0 0/1 * ?\",\n    \"earliest_start_time\": \"\",\n    \"task_name\": \"test_q1\",\n    \"task_info\": \"desc\",\n    \"bussiness_config\": {\n        \"tags\": [\n            31\n        ],\n        \"cycle_type\": \"MULTIPLE\",\n        \"cron_level\": \"day\",\n        \"p_task_list\": []\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "49.234.42.199:28888/start/",
+					"host": [
+						"49",
+						"234",
+						"42",
+						"199"
+					],
+					"port": "28888",
+					"path": [
+						"start",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
