@@ -56,17 +56,16 @@ def get_data(engien: Session, id: int) -> Test:
     return entity
 
 
-def search(engien: Session, params: dict):
+def search(engine: Session, params: dict):
     logger.info(params)
 
-    select_sql = f"select * from test where id =:id"
-    bind_sql = text(select_sql)
-    # print(bind_sql)
-    # entity = engien.execute(select_sql).all()
-    entity = engien.execute(bind_sql, params).fetchall()
-    # logger.info(entity)
+    # select_sql = f"select * from test where id =:id"
+    # bind_sql = text(select_sql)
+    # entity = engine.execute(bind_sql, params).fetchall()
+
+    select_sql = f"select * from test where id ={params.get('id')}"
+    return engine.execute(select_sql).all()
     return entity
-    # entity = engien.search()
 
 
 def get_by_id(engine: Session, id: int):
