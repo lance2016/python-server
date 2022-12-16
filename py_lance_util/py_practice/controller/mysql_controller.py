@@ -45,3 +45,9 @@ def insert_data(id: int, db: Session = Depends(get_session)):
 def search_data(params: dict, db: Session = Depends(get_session)):
     entity = mysql_service.search(db, params)
     return entity
+
+
+@router.get("/get_by_id")
+def get_by_id(id, db: Session = Depends(get_session)):
+    entity = mysql_service.get_by_id(db, id)
+    return entity

@@ -1,7 +1,7 @@
 from datetime import datetime
 import random
 from loguru import logger
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.orm.session import Session
 
 from py_lance_util.py_practice.model.student_model import Test
@@ -50,18 +50,25 @@ def delete_data(engine: Session, id: int) -> int:
 
 
 def get_data(engien: Session, id: int) -> Test:
-    entity = engien.get(Test, id)
+    # entity = engien.get(Test, id)
+    db_exec = ''
+    entity = engien.execute(db_exec).all()
     return entity
 
 
 def search(engien: Session, params: dict):
     logger.info(params)
-    # where_cond = " 1 = 1 "
-    select_sql = select(Test)
-    for key, val in params.items():
-        logger.info(f"{key},{val}")
-        select_sql = select_sql.where(getattr(Test, key) == val)
-    entity = engien.execute(select_sql).first()
-    logger.info(entity)
+
+    select_sql = f"select * from test where id =:id"
+    bind_sql = text(select_sql)
+    # print(bind_sql)
+    # entity = engien.execute(select_sql).all()
+    entity = engien.execute(bind_sql, params).fetchall()
+    # logger.info(entity)
     return entity
     # entity = engien.search()
+
+
+def get_by_id(engine: Session, id: int):
+    select_sql = f"select * from test where id ={id}"
+    return engine.execute(select_sql).all()
