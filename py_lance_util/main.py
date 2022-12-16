@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from api import router
 from config import logger, swagger
 from db import connection
+from py_lance_util.db.connection import get_session
 from py_practice.background.background import start_background_job
 
 

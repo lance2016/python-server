@@ -5,6 +5,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 from urllib.parse import quote
 
+from py_lance_util.config.config_provider import get_config
+
 # 创建对象的基类:
 Base = declarative_base()
 
@@ -19,8 +21,8 @@ class student(Base):
     name = Column(String(20))
 
 
-class t1(Base):
-    __tablename__ = 't1'
+class Test(Base):
+    __tablename__ = 'test'
     id = Column(Integer, primary_key=True)
     m_id = Column(Integer)
     name = Column(String(255))
@@ -30,13 +32,16 @@ class t1(Base):
     modify_time = Column(DateTime, onupdate=datetime.now, default=datetime.now)
 
 
-# 创建所有模型对应的表
+# config = get_config()
+# db_config = config.get_section("mysql")
+# # 创建所有模型对应的表
 # DB_URI = "mysql+pymysql://{username}:{password}@{hostname}:{port}/{database}".format(
-#     username=settings.db_user,
-#     password=quote(settings.db_passwd, '', "utf-8", None),
-#     hostname=settings.db_host,
-#     port=settings.db_port,
-#     database=settings.db_name
+#     username=db_config["user"],
+#     password=quote(db_config["password"], '', "utf-8", None),
+#     hostname=db_config["host"],
+#     port=db_config["port"],
+#     database=db_config["db_name"]
 # )
+# engine = create_engine(DB_URI, echo=True)
 # engine = create_engine(DB_URI, echo=True)
 # Base.metadata.create_all(engine)
