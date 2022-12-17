@@ -19,6 +19,7 @@ kazoo = "^2.9.0"
 pymysql = "^1.0.2"
 nacos-sdk-python = "^0.1.12"
 pyyaml = "^6.0"
+elasticsearch = "^8.5.3"
 
 
 [build-system]

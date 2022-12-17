@@ -1,7 +1,7 @@
 from datetime import datetime
 import random
 from loguru import logger
-from sqlalchemy import select, text
+from sqlalchemy.sql import select, text
 from sqlalchemy.orm.session import Session
 
 from py_lance_util.py_practice.model.student_model import Test
@@ -58,13 +58,15 @@ def get_data(engien: Session, id: int) -> Test:
 
 def search(engine: Session, params: dict):
     logger.info(params)
-
-    # select_sql = f"select * from test where id =:id"
-    # bind_sql = text(select_sql)
+    select_sql = f'''select * from test where name like '%{params.get("name")}%' '''
+    select_sql2 = f"select * from test where name like '%' :name '%' "
+    logger.info(select_sql)
+    bind_sql = text(select_sql2)
     # entity = engine.execute(bind_sql, params).fetchall()
+    entity = engine.execute(select_sql).fetchall()
 
-    select_sql = f"select * from test where id ={params.get('id')}"
-    return engine.execute(select_sql).all()
+    # select_sql = f"select * from test where id ={params.get('id')}"
+    # return engine.execute(select_sql).all()
     return entity
 
 
