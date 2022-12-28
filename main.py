@@ -1,11 +1,11 @@
 from loguru import logger as log
 import uvicorn
 from fastapi import FastAPI
-from api import router
-from config import logger, swagger
-from db import connection
+from py_lance_util.api import router
+from py_lance_util.config import logger, swagger
+from py_lance_util.db import connection
 from py_lance_util.db.connection import get_session
-from py_practice.background.background import start_background_job
+from py_lance_util.py_practice.background.background import start_background_job
 
 
 app = FastAPI()
@@ -49,4 +49,4 @@ if __name__ == "__main__":
     # 启动
     # RELOAD = get_reload()
 
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=18000, reload=True)

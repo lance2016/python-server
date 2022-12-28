@@ -1,0 +1,37 @@
+[common]
+ip = 49.234.42.199
+
+[log]
+static_log_root=/Users/lance/code/python/python-server/logs
+
+[mysql]
+user = root
+password = root
+host = 49.234.42.199
+port = 3306
+db_name = practice
+
+
+[security]
+token = token
+[rabbit_mq]
+user = rabbitmq
+password = rabbitmq
+host = 49.234.42.199
+port = 5672
+vhost = /
+
+[zookeeper]
+host = 49.234.42.199
+port = 2181
+
+[redis]
+host = 49.234.42.199
+password = mypassword
+port = 6379
+
+[email]
+host = smtp.163.com
+user = q161162
+password = JZGXLIJZSGOBVBBZ
+sender = q161162@163.com

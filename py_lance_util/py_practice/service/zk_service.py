@@ -1,5 +1,5 @@
 
-from config.zk_config import get_zk
+from py_lance_util.config.zk_config import get_zk
 from loguru import logger as log
 
 

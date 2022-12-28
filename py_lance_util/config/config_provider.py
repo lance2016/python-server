@@ -15,7 +15,7 @@ client = nacos.NacosClient(NACOS_ADDRESS, namespace=NAMESPACE_ID)
 class ConfigProvider:
 
     def __init__(self, appname: str):
-        self.config_data_id = f'{appname}_{ENV}'
+        self.config_data_id = f'{appname}_pro'
         logger.info(f'config_data_id: {self.config_data_id}')
         try:
             config_raw = client.get_config(self.config_data_id, group=GROUP)

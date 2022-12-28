@@ -1,10 +1,18 @@
-FROM registry.cn-hangzhou.aliyuncs.com/lance0515/lance-test:python_base_amd64
+FROM python:3.9
 
 LABEL maintainer="Lance"
 
-COPY requirements.txt .
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libssl-dev \
+    libffi-dev \
+    python3-dev \
+    vim
 
-RUN pip3 install -r requirements.txt
+
+RUN pip3 install poetry
+
+# RUN pip3 install -r requirements.txt
 
 # 配置默认放置 App 的目录
 RUN mkdir -p /app
@@ -17,4 +25,8 @@ COPY . .
 
 ENV PYTHONPATH /app
 
-ENTRYPOINT ["python3", "/app/main.py"]
+RUN poetry install 
+
+CMD ["bash", "-c", "cd /app && poetry run python3 py_lance_util/main.py"]
+
+# ENTRYPOINT ["poetry run python3", "/"]

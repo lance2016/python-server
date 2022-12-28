@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from api.middleware.oauth import token_is_true
+from py_lance_util.api.middleware.oauth import token_is_true
 from loguru import logger as log
 
 from py_lance_util.config.config_provider import get_config

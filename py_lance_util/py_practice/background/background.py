@@ -5,7 +5,7 @@ from loguru import logger
 from py_lance_util.config.config_provider import get_config
 
 
-from utils.rabbitmq_util import RabbitMQ
+from py_lance_util.utils.rabbitmq_util import RabbitMQ
 config = get_config()
 rabbitmq_config = config.get_section("rabbit_mq")
 class MyThread(threading.Thread):

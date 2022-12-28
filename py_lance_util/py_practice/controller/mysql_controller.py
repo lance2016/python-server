@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends
-from api.middleware.oauth import token_is_true
-from common.response import Response
-from db.connection import get_session
-from py_practice.controller.main_controller import check_token
+from py_lance_util.api.middleware.oauth import token_is_true
+from py_lance_util.common.response import Response
+from py_lance_util.db.connection import get_session
+from py_lance_util.py_practice.controller.main_controller import check_token
 from sqlalchemy.orm.session import Session
 
-from py_practice.model.student_model import Test
-from py_practice.service import mysql_service
+from py_lance_util.py_practice.model.student_model import Test
+from py_lance_util.py_practice.service import mysql_service
 
 router = APIRouter(prefix="/mysql", tags=["mysql"], dependencies=[Depends(token_is_true)])
 
@@ -32,6 +32,9 @@ def insert_data(db: Session = Depends(get_session)):
 @router.delete("/{id}/")
 def delete_data_by_id(id: int, db: Session = Depends(get_session)):
     row = mysql_service.delete_data(db, id)
+    entity = mysql_service.get_data(db, id)
+    print("entity",entity)
+    db.commit()
     return Response.success(data=row, message="删除成功")
 
 

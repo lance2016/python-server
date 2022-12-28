@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends
-from api.middleware.oauth import token_is_true
+from py_lance_util.api.middleware.oauth import token_is_true
 from loguru import logger as log
-from common.response import Response
+from py_lance_util.common.response import Response
 
-from config.zk_config import get_zk
-from py_practice.service import zk_service
+from py_lance_util.config.zk_config import get_zk
+from py_lance_util.py_practice.service import zk_service
 
 
 router = APIRouter(prefix="/zk", tags=["zookeeper"], dependencies=[Depends(token_is_true)])

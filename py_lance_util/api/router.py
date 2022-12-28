@@ -1,10 +1,10 @@
 
-from api.middleware.global_exception import add_exception
+from py_lance_util.api.middleware.global_exception import add_exception
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from py_lance_util.config.config_provider import get_config
-from py_practice.controller import mail_controller, main_controller, mq_controller, mysql_controller, zk_controller
+from py_lance_util.py_practice.controller import mail_controller, main_controller, mq_controller, mysql_controller, zk_controller
 
 
 def init(app: FastAPI):

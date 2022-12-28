@@ -1,7 +1,7 @@
 from datetime import datetime
 import random
 from loguru import logger
-from sqlalchemy.sql import select, text
+from sqlmodel import select, text
 from sqlalchemy.orm.session import Session
 
 from py_lance_util.py_practice.model.student_model import Test
@@ -43,32 +43,45 @@ def insert_into_table(engine: Session) -> Test:
 
 
 def delete_data(engine: Session, id: int) -> int:
-    row = engine.query(Test).filter(Test.id == 1).delete()
-    engine.commit()
+    row = engine.query(Test).filter(Test.id == id).delete()
+    entity = engine.query(Test).where(Test.id==id).first()
+    logger.info(f"search entity {entity}")
+    # engine.commit()
     logger.info(f"delete {row}")
     return row
 
 
 def get_data(engien: Session, id: int) -> Test:
-    # entity = engien.get(Test, id)
-    db_exec = ''
-    entity = engien.execute(db_exec).all()
+    entity = engien.get(Test, id)
     return entity
 
 
 def search(engine: Session, params: dict):
     logger.info(params)
-    select_sql = f'''select * from test where name like '%{params.get("name")}%' '''
-    select_sql2 = f"select * from test where name like '%' :name '%' "
-    logger.info(select_sql)
+    # select_sql = f'''select * from test where name like '%{params.get("name")}%' '''
+    cond = ' 1=1 '
+    if params.get("name"):
+        cond += " and name like :name  "
+    select_sql2 = f"select * from test where  {cond} "
+    # logger.info(select_sql)
     bind_sql = text(select_sql2)
-    # entity = engine.execute(bind_sql, params).fetchall()
-    entity = engine.execute(select_sql).fetchall()
+
+    change_param(params, 'name')
+    logger.info(params)
+    #    f"'%'{params.get("name")}'%'")
+    print(select_sql2)
+    print(bind_sql)
+    entity = engine.execute(bind_sql, params ).fetchall()
+    # entity = engine.execute(select_sql).fetchall()
 
     # select_sql = f"select * from test where id ={params.get('id')}"
     # return engine.execute(select_sql).all()
     return entity
 
+
+def change_param(params:dict, key):
+     if params.get(key):
+       params[key] = f"%{params.get(key)}%"
 
 def get_by_id(engine: Session, id: int):
     select_sql = f"select * from test where id ={id}"
